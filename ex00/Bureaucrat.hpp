@@ -6,7 +6,7 @@
 /*   By: eismail <eismail@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 18:41:04 by eismail           #+#    #+#             */
-/*   Updated: 2025/02/18 11:26:54 by eismail          ###   ########.fr       */
+/*   Updated: 2025/02/19 11:36:22 by eismail          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 class Bureaucrat
 {
 private:
-    std::string name;
+    const std::string name;
     int grade;
 public:
     Bureaucrat();
@@ -24,7 +24,7 @@ public:
     Bureaucrat &operator=(const Bureaucrat &other);
     ~Bureaucrat();
     Bureaucrat(std::string name, int grade);
-    std::string getName() const;
+    const std::string getName() const;
     int getGrade() const;
     void inc();
     void dec();

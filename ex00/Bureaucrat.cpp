@@ -6,24 +6,22 @@
 /*   By: eismail <eismail@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 18:48:42 by eismail           #+#    #+#             */
-/*   Updated: 2025/02/18 11:22:12 by eismail          ###   ########.fr       */
+/*   Updated: 2025/02/19 12:12:50 by eismail          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat()
+Bureaucrat::Bureaucrat() : name("unknown")
 {
-    this->name = "unknown";
     this->grade = 150;
     std::cout << "Default constructor called" << std::endl;
 }
-Bureaucrat::Bureaucrat(std::string name, int grade)
+Bureaucrat::Bureaucrat(const std::string name, int grade) : name(name)
 {
-    this->name = name;
-    if (grade > 150)
+    if (grade < 1)
         throw GradeTooHighException();
-    if (grade < 0)
+    if (grade > 150)
         throw GradeTooLowException();
     this->grade = grade;
     std::cout << "Constructor called" << std::endl;
@@ -34,7 +32,7 @@ Bureaucrat::~Bureaucrat()
     std::cout << "Destructor called" << std::endl;
 }
 
-std::string Bureaucrat::getName() const
+const std::string Bureaucrat::getName() const
 {
     return this->name;
 }
@@ -45,7 +43,7 @@ int Bureaucrat::getGrade() const
 
 void Bureaucrat::inc()
 {
-    if (this->grade == 0)
+    if (this->grade == 1)
         throw GradeTooHighException();
      this->grade--;
 }
@@ -80,10 +78,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat &other) : name(other.name), grade(other.
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other)
 {
     if (this != &other)
-    {
-        name = other.name;
         grade = other.grade;
-    }
     std::cout << "Assignment copy constructor called" << std::endl;
     return *this;
 }

@@ -6,35 +6,28 @@
 /*   By: eismail <eismail@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 18:48:42 by eismail           #+#    #+#             */
-/*   Updated: 2025/02/18 12:06:38 by eismail          ###   ########.fr       */
+/*   Updated: 2025/02/19 21:46:53 by eismail          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat()
+Bureaucrat::Bureaucrat() : name("unknown")
 {
-    this->name = "unknown";
     this->grade = 150;
-    std::cout << "Default constructor called" << std::endl;
 }
-Bureaucrat::Bureaucrat(std::string name, int grade)
+Bureaucrat::Bureaucrat(const std::string name, int grade) : name(name)
 {
-    this->name = name;
-    if (grade > 150)
-        throw GradeTooHighException();
     if (grade < 1)
+        throw GradeTooHighException();
+    if (grade > 150)
         throw GradeTooLowException();
     this->grade = grade;
-    std::cout << "Constructor called" << std::endl;
 }
 
-Bureaucrat::~Bureaucrat()
-{
-    std::cout << "Destructor called" << std::endl;
-}
+Bureaucrat::~Bureaucrat(){}
 
-std::string Bureaucrat::getName() const
+const std::string Bureaucrat::getName() const
 {
     return this->name;
 }
@@ -56,6 +49,20 @@ void Bureaucrat::dec()
      this->grade++;
 }
 
+void Bureaucrat::signForm( Form &F)
+{
+    try
+    {
+        F.beSigned(*this);
+        std::cout << this->getName() << " signed " << F.getName() << std::endl;;
+    }
+    catch(const std::exception& e)
+    {
+        std::cout << this->getName() << " couldn't sign " << F.getName() 
+					<< " because " << e.what() << std::endl;
+    }
+}
+
 const char *Bureaucrat::GradeTooHighException::what() const throw()
 {
     return "Grade Too High";
@@ -72,18 +79,11 @@ std::ostream& operator<<(std::ostream& ostream, const Bureaucrat &op)
     return ostream;
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat &other) : name(other.name), grade(other.grade)
-{
-    std::cout << "Copy constructor called"<< std::endl;
-}
+Bureaucrat::Bureaucrat(const Bureaucrat &other) : name(other.name), grade(other.grade){}
 
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other)
 {
     if (this != &other)
-    {
-        name = other.name;
         grade = other.grade;
-    }
-    std::cout << "Assignment copy constructor called" << std::endl;
     return *this;
 }

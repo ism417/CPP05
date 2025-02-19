@@ -4,11 +4,11 @@ CFLAGS = -Wall -Wextra -Werror -std=c++98
 
 NAME = bureau
 
-SRCS = main.cpp Bureaucrat.cpp
+SRCS = main.cpp Bureaucrat.cpp Form.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
-HEADERS = Bureaucrat.hpp
+HEADERS = Bureaucrat.hpp Form.hpp
 
 all: $(NAME)
 
