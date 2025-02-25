@@ -6,27 +6,29 @@
 /*   By: eismail <eismail@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 14:03:33 by eismail           #+#    #+#             */
-/*   Updated: 2025/02/23 10:25:41 by eismail          ###   ########.fr       */
+/*   Updated: 2025/02/23 11:54:37 by eismail          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "AForm.hpp"
+#include "Intern.hpp"
+#include "PresidentialPardonForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "ShrubberyCreationForm.hpp"
 
 int main()
 {
     try {
-        Bureaucrat a("a", 150);
-        Bureaucrat b("b", 1);
-        
-        std::cout << "---------------------------------------" << std::endl;
-        std::cout << a << std::endl; 
-        a.inc();
-        std::cout << a << std::endl; 
-        std::cout << "---------------------------------------" << std::endl;
-        std::cout << b << std::endl; 
-        b.dec();
-        std::cout << b << std::endl; 
-        std::cout << "---------------------------------------" << std::endl;
+        Bureaucrat a("lm9adm", 4);
+        Intern someRandomIntern;
+        AForm* rrf;
+        rrf = someRandomIntern.makeForm("presidential pardon", "Bender");
+        if (!rrf)
+            return 1;
+        std::cout << *rrf <<std::endl;
+        a.signAForm(*rrf);
+        a.executeForm(*rrf);
     }
     catch (std::exception & e)
     {

@@ -6,7 +6,7 @@
 /*   By: eismail <eismail@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 18:48:42 by eismail           #+#    #+#             */
-/*   Updated: 2025/02/22 11:59:14 by eismail          ###   ########.fr       */
+/*   Updated: 2025/02/21 12:13:46 by eismail          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,20 @@ void Bureaucrat::dec()
      this->grade++;
 }
 
+void Bureaucrat::signAForm( AForm &F)
+{
+    try
+    {
+        F.beSigned(*this);
+        std::cout << this->getName() << " signed " << F.getName() << std::endl;;
+    }
+    catch(const std::exception& e)
+    {
+        std::cout << this->getName() << " couldn't sign " << F.getName() 
+					<< " because " << e.what() << std::endl;
+    }
+}
+
 const char *Bureaucrat::GradeTooHighException::what() const throw()
 {
     return "Grade Too High";
@@ -72,4 +86,17 @@ Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other)
     if (this != &other)
         grade = other.grade;
     return *this;
+}
+
+void Bureaucrat::executeForm(AForm const & form)
+{
+    try{
+       form.execute(*this);
+       std::cout << this->getName() << " executed " << form.getName() << std::endl; 
+    }
+    catch (const std::exception &e)
+    {
+        std::cout << this->getName() << " couldn't sign " << form.getName() 
+					<< " because " << e.what() << std::endl;
+    }
 }
